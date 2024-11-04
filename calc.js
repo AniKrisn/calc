@@ -56,7 +56,7 @@ for (let i = 0; i < buttonCount; i++) {
 }
 
 function evaluate() {
-    const expression = mainView.textContent;
+    const expression = stageView.textContent;
 
     const numbers = expression.split(/[\+\-\×÷]/).map(num => parseFloat(num));
     const operators = expression.split(/[0-9]+(\.[0-9]+)?/).filter(Boolean);
@@ -101,15 +101,15 @@ container.addEventListener('click', (e) => {
                 stage = main;
                 console.log(stage);
                 stageView.textContent = main;
-                stageView.textContent += '' + e.target.textContent;
-
-                //stageView.textContent += e.target.textContent;
-                stage = stageView.textContent;
+                stageView.textContent += ' ' + e.target.textContent;
+                mainView.textContent = '';
             }
         }
 
         if (e.target.getAttribute('data-type') === 'eq') {
-            evaluate(); 
+            stageView.textContent += main;
+            evaluate();
+            stageView.textContent = ''; 
         }
     }
 
