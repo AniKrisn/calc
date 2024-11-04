@@ -1,18 +1,23 @@
 const container = document.querySelector('.container');
-const viewport = document.createElement('viewport');
-const stageView = document.createElement('stageView');
-const clearContainer = document.createElement('clearct');
+const btnContainer = document.querySelector('.btn-container');
+const viewport = document.querySelector('.viewport');
+
+const stageView = document.createElement('div');
+const mainView = document.createElement('div');
+const clearContainer = document.createElement('div');
 const clearButton = document.createElement('clearbtn');
 const delButton = document.createElement('delbtn');
-const btnContainer = document.querySelector('.btn-container');
 
-viewport.className = 'viewport';
+stageView.className = 'stageview';
+mainView.className = 'mainview';
 clearContainer.className = 'clearct';
 clearButton.className = 'clearbtn';
 delButton.className = 'delbtn';
 
 container.insertBefore(viewport, container.querySelector('.btn-container'));
 container.insertBefore(clearContainer, container.querySelector('.btn-container'));
+viewport.appendChild(stageView);
+viewport.appendChild(mainView);
 clearContainer.appendChild(clearButton);
 clearContainer.appendChild(delButton);
 clearButton.setAttribute('data-type', 'clear');
@@ -20,8 +25,9 @@ delButton.setAttribute('data-type', 'del');
 
 clearButton.textContent = "CLEAR";
 delButton.textContent = "DELETE";
-viewport.setAttribute('data-placeholder', '0');
-viewport.textContent = '';
+mainView.setAttribute('data-placeholder', '0');
+mainView.textContent = '';
+stageView.textContent = 'stage';
 
 const buttonCount = 16;
 for (let i = 0; i < buttonCount; i++) {
@@ -76,4 +82,3 @@ container.addEventListener('click', (e) => {
         viewport.textContent = viewport.textContent.slice(0, -1);
     }
 });
-
