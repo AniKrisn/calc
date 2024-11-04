@@ -26,7 +26,7 @@ delButton.setAttribute('data-type', 'del');
 clearButton.textContent = "CLEAR";
 delButton.textContent = "DELETE";
 mainView.setAttribute('data-placeholder', '0');
-mainView.textContent = '';
+mainView.textContent = 'hey';
 stageView.textContent = 'stage';
 
 const buttonCount = 16;
