@@ -44,7 +44,7 @@ for (let i = 0; i < buttonCount; i++) {
     ['num', 'num', 'num', 'oper',
     'num', 'num', 'num', 'oper',
     'num', 'num', 'num', 'oper',
-    'oper', 'num', 'oper', 'oper'];
+    'oper', 'num', 'eq', 'oper'];
     button.setAttribute('data-type', dataAttributes[i]);
     
     if (i % 4 === 0) {
@@ -55,22 +55,61 @@ for (let i = 0; i < buttonCount; i++) {
     btnContainer.lastChild.appendChild(button);
 }
 
-var res = 0;
+function evaluate() {
+    const expression = mainView.textContent;
+
+    const numbers = expression.split(/[\+\-\×÷]/).map(num => parseFloat(num));
+    const operators = expression.split(/[0-9]+(\.[0-9]+)?/).filter(Boolean);
+
+    let result = numbers[0];
+
+    for (let i = 0; i < operators.length; i++) {
+        const operator = operators[i].trim();
+        const nextNumber = numbers[i + 1];
+
+        switch (operator) {
+            case '+':
+                result += nextNumber;
+                break;
+            case '-':
+                result -= nextNumber;
+                break;
+            case '×':
+                result *= nextNumber;
+                break;
+            case '÷':
+                result /= nextNumber;
+                break;
+        }
+    }
+
+    mainView.textContent = result.toString();
+}
+
+let main = 0;
+let stage = 0;
 container.addEventListener('click', (e) => {
     if (e.target.matches('button')) {
         if (e.target.getAttribute('data-type') === 'num') {
             mainView.textContent += e.target.textContent;
-            res = mainView.textContent;
+            main = mainView.textContent;
         }
-        else if (e.target.getAttribute('data-type') === 'oper') {
-            if (res) {
-                stage = res;
-                viewport.textContent += e.target.textContent;
-                res = viewport.textContent;
+        
+        if (e.target.getAttribute('data-type') === 'oper') {
+            // operator only if num
+            if (main.trim() !== '') {
+                stage = main;
                 console.log(stage);
-                console.log(res);
+                stageView.textContent = main;
+                stageView.textContent += '' + e.target.textContent;
 
+                //stageView.textContent += e.target.textContent;
+                stage = stageView.textContent;
             }
+        }
+
+        if (e.target.getAttribute('data-type') === 'eq') {
+            evaluate(); 
         }
     }
 
