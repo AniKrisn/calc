@@ -26,8 +26,8 @@ delButton.setAttribute('data-type', 'del');
 clearButton.textContent = "CLEAR";
 delButton.textContent = "DELETE";
 mainView.setAttribute('data-placeholder', '0');
-mainView.textContent = 'hey';
-stageView.textContent = 'stage';
+mainView.textContent = '';
+stageView.textContent = '';
 
 const buttonCount = 16;
 for (let i = 0; i < buttonCount; i++) {
@@ -59,8 +59,8 @@ var res = 0;
 container.addEventListener('click', (e) => {
     if (e.target.matches('button')) {
         if (e.target.getAttribute('data-type') === 'num') {
-            viewport.textContent += e.target.textContent;
-            res = viewport.textContent;
+            mainView.textContent += e.target.textContent;
+            res = mainView.textContent;
         }
         else if (e.target.getAttribute('data-type') === 'oper') {
             if (res) {
@@ -75,10 +75,11 @@ container.addEventListener('click', (e) => {
     }
 
     if (e.target.matches('clearbtn')) {
-        viewport.textContent = '';
+        mainView.textContent = '';
+        stageView.textContent = '';
     }
 
     if (e.target.matches('delbtn')) {
-        viewport.textContent = viewport.textContent.slice(0, -1);
+        mainView.textContent = mainView.textContent.slice(0, -1);
     }
 });
